@@ -11,6 +11,10 @@
         "photoURL": { "type": "string" },
         "role": { "type": "string", "enum": ["admin", "trainer"] },
         "subscription": { "type": "string", "enum": ["free", "pro", "institution"] },
+        "trainerNumber": { "type": "string" },
+        "institutionName": { "type": "string" },
+        "institutionLogo": { "type": "string" },
+        "level": { "type": "string" },
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["uid", "email", "role", "subscription"]
@@ -24,15 +28,15 @@
         "authorId": { "type": "string" },
         "authorName": { "type": "string" },
         "unitTitle": { "type": "string" },
-        "learningPlanHtml": { "type": "string" },
-        "sessionPlansHtml": { "type": "string" },
+        "learningPlan": { "type": "string" },
+        "sessionPlans": { "type": "string" },
         "isPublic": { "type": "boolean" },
         "price": { "type": "number" },
         "category": { "type": "string" },
         "createdAt": { "type": "string", "format": "date-time" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["authorId", "unitTitle", "learningPlanHtml", "isPublic"]
+      "required": ["authorId", "unitTitle", "learningPlan", "isPublic"]
     }
   },
   "firestore": {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { db } from '../firebase';
+import { db, handleFirestoreError, OperationType } from '../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { 
@@ -59,7 +59,7 @@ const Profile: React.FC = () => {
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch (err: any) {
-      setError('Failed to update profile: ' + err.message);
+      handleFirestoreError(err, OperationType.UPDATE, `users/${user.uid}`);
     } finally {
       setIsSaving(false);
     }
