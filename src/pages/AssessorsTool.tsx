@@ -31,10 +31,7 @@ const AssessorsTool: React.FC = () => {
   const [isApiConfigured, setIsApiConfigured] = useState(false);
 
   useEffect(() => {
-    const keyIsAvailable = typeof process !== 'undefined' &&
-                           typeof process.env !== 'undefined' &&
-                           !!process.env.API_KEY &&
-                           process.env.API_KEY.trim() !== '';
+    const keyIsAvailable = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'undefined';
     setIsApiConfigured(keyIsAvailable);
     if (profile?.institutionLogo) setCustomLogo(profile.institutionLogo);
   }, [profile]);
@@ -48,7 +45,7 @@ const AssessorsTool: React.FC = () => {
     setIsLoading(true);
     setError('');
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const systemInstruction = `You are a TVET CDACC Assessment Expert. Generate a professional ${toolType} assessment tool in HTML format.

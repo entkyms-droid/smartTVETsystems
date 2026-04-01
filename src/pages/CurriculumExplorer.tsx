@@ -64,10 +64,7 @@ const CurriculumExplorer: React.FC = () => {
   const [activeMode, setActiveMode] = useState<'curriculum' | 'sessionPlan'>('curriculum');
 
   useEffect(() => {
-    const keyIsAvailable = typeof process !== 'undefined' &&
-                           typeof process.env !== 'undefined' &&
-                           !!process.env.API_KEY &&
-                           process.env.API_KEY.trim() !== '';
+    const keyIsAvailable = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'undefined';
     setIsApiConfigured(keyIsAvailable);
     if (profile?.institutionLogo) setCustomLogo(profile.institutionLogo);
   }, [profile]);
@@ -103,7 +100,7 @@ const CurriculumExplorer: React.FC = () => {
     setIsLoading(true);
     setError('');
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const response = await ai.models.generateContent({
@@ -188,7 +185,7 @@ const CurriculumExplorer: React.FC = () => {
     setGeneratedQuiz('');
     setChatMessages([]);
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const prompt = type === 'subtopic' 
@@ -218,7 +215,7 @@ const CurriculumExplorer: React.FC = () => {
     if (generatedQuiz) return;
     
     setIsGeneratingQuiz(true);
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const prompt = `Generate a comprehensive quiz for the ${selectedItem.type} "${selectedItem.title}" in the course "${curriculumData?.courseTitle}". 
@@ -250,7 +247,7 @@ const CurriculumExplorer: React.FC = () => {
     setChatInput('');
     setIsChatLoading(true);
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const chat = ai.chats.create({
@@ -281,7 +278,7 @@ const CurriculumExplorer: React.FC = () => {
     setIsLoading(true);
     setError('');
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const prompt = target === 'notes'

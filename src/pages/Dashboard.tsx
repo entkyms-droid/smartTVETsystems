@@ -165,10 +165,7 @@ const Dashboard: React.FC = () => {
 
   // --- API KEY CHECK ---
   useEffect(() => {
-    const keyIsAvailable = typeof process !== 'undefined' &&
-                           typeof process.env !== 'undefined' &&
-                           !!process.env.API_KEY &&
-                           process.env.API_KEY.trim() !== '';
+    const keyIsAvailable = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'undefined';
     setIsApiConfigured(keyIsAvailable);
   }, []);
 
@@ -264,7 +261,7 @@ const Dashboard: React.FC = () => {
       setGenerationStep('Reading document content...');
       
       try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
         let modelParts: any[] = [];
 
         const extractionInstruction = `You are a TVET CDACC document extractor. 
@@ -330,7 +327,7 @@ const Dashboard: React.FC = () => {
   const handleGenerateLP = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isApiConfigured) {
-      setError("Configuration Error: The API_KEY is not available in the environment.");
+      setError("Configuration Error: The GEMINI_API_KEY is not available in the environment.");
       return;
     }
 
@@ -345,7 +342,7 @@ const Dashboard: React.FC = () => {
     const currentYear = now.getFullYear();
     const totalSessions = parseInt(numWeeks) * parseInt(numLessons);
     const totalHours = totalSessions * 2; 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       setGenerationStep('Extracting Metadata & Benchmarks...');
@@ -432,7 +429,7 @@ const Dashboard: React.FC = () => {
 
     const totalSessions = parseInt(numWeeks) * parseInt(numLessons);
     const currentYear = new Date().getFullYear();
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const batchSize = 2; 

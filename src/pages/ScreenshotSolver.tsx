@@ -49,10 +49,7 @@ const ScreenshotSolver: React.FC = () => {
   const [isApiConfigured, setIsApiConfigured] = useState(false);
 
   useEffect(() => {
-    const keyIsAvailable = typeof process !== 'undefined' &&
-                           typeof process.env !== 'undefined' &&
-                           !!process.env.API_KEY &&
-                           process.env.API_KEY.trim() !== '';
+    const keyIsAvailable = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'undefined';
     setIsApiConfigured(keyIsAvailable);
   }, []);
 
@@ -84,7 +81,7 @@ const ScreenshotSolver: React.FC = () => {
     setAnalysis('');
     setError('');
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const base64Data = screenshot.split(',')[1];

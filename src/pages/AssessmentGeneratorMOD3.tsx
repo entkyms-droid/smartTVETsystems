@@ -55,10 +55,7 @@ const AssessmentGeneratorMOD3: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const keyIsAvailable = typeof process !== 'undefined' &&
-                           typeof process.env !== 'undefined' &&
-                           !!process.env.API_KEY &&
-                           process.env.API_KEY.trim() !== '';
+    const keyIsAvailable = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'undefined';
     setIsApiConfigured(keyIsAvailable);
     
     if (profile?.institutionName) setSchoolName(profile.institutionName);
@@ -77,7 +74,7 @@ const AssessmentGeneratorMOD3: React.FC = () => {
 
     updateSlot(slotId, { isLoading: true, error: '', content: null });
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const slot = slots.find(s => s.id === slotId);
     const isPractical = knqfLevel < 5;
 

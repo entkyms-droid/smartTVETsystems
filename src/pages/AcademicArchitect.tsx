@@ -31,10 +31,7 @@ const AcademicArchitect: React.FC = () => {
   const [isApiConfigured, setIsApiConfigured] = useState(false);
 
   useEffect(() => {
-    const keyIsAvailable = typeof process !== 'undefined' &&
-                           typeof process.env !== 'undefined' &&
-                           !!process.env.API_KEY &&
-                           process.env.API_KEY.trim() !== '';
+    const keyIsAvailable = !!process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'undefined';
     setIsApiConfigured(keyIsAvailable);
     if (profile?.institutionLogo) setCustomLogo(profile.institutionLogo);
   }, [profile]);
@@ -48,7 +45,7 @@ const AcademicArchitect: React.FC = () => {
     setIsLoading(true);
     setError('');
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     try {
       const systemInstruction = `You are an Academic Architect and Curriculum Designer. Generate a professional ${archType === 'curriculum' ? 'Full Curriculum Structure' : archType === 'outline' ? 'Course Outline' : archType === 'mapping' ? 'Competency Map' : archType === 'scheme' ? 'Scheme of Work' : 'Resource List'} in HTML format.
